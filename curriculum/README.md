@@ -1,26 +1,24 @@
 # Christian Theology — 18-Module Academic Curriculum
 
-A university-level, eighteen-module academic programme tracing the Christian
-faith from its foundations to advanced research.
+A reconstructed university-level academic programme tracing the Christian faith from its foundations to advanced research.
 
-## Contents
+## Files
 
 | File | What it is |
 |------|-----------|
-| `Christian_Theology_Curriculum.pptx` | The full deck — **306 slides**, 16:9. |
-| `curriculum_full.json` | The structured content (18 modules / 220 numbered topics) that drives the deck. |
+| `curriculum_full.json` | Structured source content: 18 modules and 220 numbered topics. |
+| `../reconstructed/Christian_Theology_Curriculum.pptx` | Rebuilt, editable PowerPoint: 306 slides, 16:9. |
+| `../content_audit.md` | Read-only first-pass audit findings; doctrinal wording was not changed. |
+
+The original/reference PPTX, when present in this workspace as `Christian_Theology_Curriculum.pptx`, is left untouched. The rebuild writes to `reconstructed/` by default.
 
 ## Structure
 
-- **Front matter** — title, course introduction (purpose / scope / approach),
-  learning objectives, the theological-progression map, and a programme overview.
-- **18 modules**, each with: a section divider, an introduction to the
-  discipline, a sequence of numbered lecture topics (220 in total), — where
-  appropriate — a diagram, and a module summary plus a transition to the next stage.
-- **Closing** — a course review, the integration of the theological disciplines,
-  a reflection with suggested research topics, and a final slide.
+- **Front matter** — title, course introduction (purpose / scope / approach), learning objectives, theological-progression map, and programme overview.
+- **18 modules** — each has a divider, module introduction, numbered lecture topics, an optional diagram, a summary, and (except the last module) a transition.
+- **Closing** — course review, integration of theological disciplines, reflection with suggested research topics, and final slide.
 
-Module map:
+## Module map
 
 1. Foundations of Christian Theology
 2. The Bible: The Book of Theology
@@ -41,16 +39,20 @@ Module map:
 17. Apologetics and Theology in Dialogue
 18. Advanced Theological Research
 
-## Provenance
+## Provenance and scope
 
-This is a **reconstructed syllabus**: the module themes and the 1–220 topic
-numbering follow the standard academic progression, but the detailed topic
-titles and lecture content were authored for this engagement because the
-official curriculum file was not supplied. The content is swappable — drop the
-official file (docx/pdf/txt/md) into the build and run `ingest.py` to parse it
-authoritatively and re-emit the deck without re-authoring.
+This is a **reconstructed syllabus**, not an official TBUGEUSA curriculum. The module themes and 1–220 numbering follow a standard academic progression; detailed titles and lecture content were authored for this engagement because the official curriculum file was not supplied. If an official source arrives, replace/update the JSON and rebuild rather than treating this reconstruction as authoritative.
 
-## Quality control
+Some content is explicitly or implicitly Reformed/evangelical, while other passages read as broadly Christian. See `../content_audit.md` for historical, citation, and tradition-framing issues identified in a read-only pass.
 
-The deck passes a render-based overflow audit: **0 text-overflow issues**
-across all 306 slides (conservative DejaVu metrics, 160 px/in).
+## Build and verification
+
+From the repository root:
+
+```bash
+python -m pip install python-pptx Pillow
+python -m build.engine.build
+python -m build.engine.verify /path/to/reference.pptx reconstructed/Christian_Theology_Curriculum.pptx --tol 0.03
+```
+
+The build emits a 306-slide deck into `reconstructed/` and does not overwrite the reference PPTX.
